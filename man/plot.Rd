@@ -3,16 +3,83 @@
 \name{plot}
 \alias{plot}
 \alias{plot.GPR}
+\alias{contour}
+\alias{contour.GPR}
 \alias{plot}
 \alias{plot.GPRsurvey}
 \title{Plot the GPR object.}
 \usage{
-\method{plot}{GPR}(x, y, ...)
+\method{plot}{GPR}(x, add = FALSE, relTime0 = FALSE, note = NULL,
+  addFid = TRUE, addAnn = TRUE, addTime0 = TRUE, addDepth0 = TRUE,
+  addAmpl0 = TRUE, addTopo = FALSE, clip = NULL, ratio = 1,
+  barscale = TRUE, wsize = 1, wside = 1, pdfName = NULL, ...)
+
+\method{contour}{GPR}(x, relTime0 = FALSE, add = FALSE, note = NULL,
+  addFid = TRUE, addAnn = TRUE, addTime0 = TRUE, addDepth0 = TRUE,
+  addAmpl0 = TRUE, addTopo = FALSE, clip = NULL, ratio = 1,
+  barscale = TRUE, pdfName = NULL, ...)
 
 \method{plot}{GPRsurvey}(x, y, ...)
 }
+\arguments{
+\item{x}{Object of class \code{GPR}}
+
+\item{add}{logical. If \code{TRUE}, add to current plot}
+
+\item{relTime0}{logical. If \code{TRUE}, adjust vertical axis to time-zero.}
+
+\item{addFid}{logical. Add fiducial markes}
+
+\item{addAnn}{logical. Add GPR annotations (line intersections)}
+
+\item{addTime0}{logical. Add time-zero line}
+
+\item{addDepth0}{logical. Add depth-zero line}
+
+\item{addAmpl0}{logical. Add an horizontal line on 1D plot}
+
+\item{addTopo}{logical. For 2D plot, add topography (if the data are sampled
+in time unit, the data are migrated with a static
+migration)}
+
+\item{clip}{numeric. If length-one numeric vector, clip the amplitudes 
+                    larger than \code{clip} and smaller than \code{-clip}.
+                    If length-two numeric vector, clip the amplitudes
+                    smaller than \code{clip[1]} and larger than 
+                    \code{clip[2]}.
+Add fiducial markes}
+
+\item{ratio}{logical. Add fiducial markes}
+
+\item{barscale}{logical. Add a colorbar scale}
+
+\item{wsize}{length-one numeric. Size of the wiggles (default = \code{1}).}
+
+\item{wside}{length-one numeric. If positive the right part of the wavelet
+is colored. If negative, the left part of the wavelet is
+colored.}
+
+\item{pdfName}{length-one character. Name/path of the PDF to export 
+without extension}
+
+\item{...}{additional arguments passed to the plotting methods 
+\code{\link[graphics]{plot}} for 1D plot and 
+\code{\link[plot3D]{image2D}} for 2D plot. See also  \code{details}.}
+}
 \description{
-If the GPR object consists of a single trace, wiggle plot is shown.
+\code{plot}: If the GPR object consists of a single trace, wiggle plot 
+is shown.
+
+\code{contour} extends \code{plot3D::contour2D} and creates a contour plot.
 
 Plot GPR suvey lines
+}
+\details{
+Additional arguments
+\itemize{
+  \item \code{type}: Possible values for 1D plot: see argument \code{type} in
+            \code{\link[graphics]{plot}}.
+             For 2D plot: \code{"raster"} (default) or \code{"wiggles"}.
+  \item \code{col}: Color. Default 1D: "black". 2D: \code{palGPR(n = 101)}
+}
 }
